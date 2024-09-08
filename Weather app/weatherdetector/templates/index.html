@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Weather Detector</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+    }
+
+    nav {
+      background: #333;
+      padding: 15px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    nav h1 {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .input-group {
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for elevation */
+      border-radius: 30px; /* Fully rounded corners for the entire input group */
+      overflow: hidden; /* Prevents overflow of elements within the rounded input group */
+    }
+
+    .form-control {
+      border-radius: 0; /* Removed individual border-radius as the input-group handles it */
+      padding: 15px;
+      font-size: 1.2em;
+      transition: background-color 0.3s ease-in-out; /* Smooth transition effect */
+    }
+
+    .form-control::placeholder {
+      color: #bbb; /* Lighter placeholder text */
+      opacity: 1;
+    }
+
+    .form-control:focus::placeholder {
+      opacity: 0.5; /* Faded placeholder text on focus */
+    }
+
+    .btn-default {
+      background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
+      border: none;
+      color: white;
+      font-size: 1.3em; /* Increased font size */
+      padding: 15px 25px; /* Increased padding */
+      transition: background 0.3s ease-in-out; /* Smooth transition effect */
+
+      padding-left:15px;
+    }
+
+    .btn-default:hover {
+      background: linear-gradient(to right, #2575fc, #6a11cb); /* Reversed gradient on hover */
+    }
+
+    .btn-default::after {
+      content: "\2192"; /* Unicode for right arrow (→) */
+      font-weight: bold;
+      margin-left: 5px; /* Spacing between arrow and text */
+    }
+
+    .weather-info {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      margin-top: 30px;
+    }
+
+    .weather-info h1,
+    .weather-info h3 {
+      margin: 0;
+      padding-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .weather-info h5 {
+      margin: 5px 0;
+      font-weight: normal;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="row">
+    <div align="center"><h1 class="col-md-3 text-center">Weather Detector</h1></div>
+  </nav>
+
+  <center class="row">
+    <form action="" method="post" class="col-md-6 col-md-offset-3">
+      {% csrf_token %}
+      <div class="input-group">
+        <input type="text" class="form-control" name="city" placeholder="Search for a city">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <!-- Arrow is automatically added via CSS -->
+          </button>
+        </div>
+      </div>
+    </form>
+  </center>
+
+  <div class="row">
+    {% if data.country_code %}
+    <div class="col-md-6 col-md-offset-3 weather-info">
+      <h1>{{ city }}</h1>
+      <h3>Country Code: {{ data.country_code }}</h3>
+      <h5>Coordinates: {{ data.coordinate }}</h5>
+      <h5>Temperature: {{ data.temp }} &#8451;</h5>
+      <h5>Pressure: {{ data.pressure }} hPa</h5>
+      <h5>Humidity: {{ data.humidity }}%</h5>
+      <h5>Description: {{ data.description }}</h5>
+    </div>
+    {% endif %}
+  </div>
+</body>
+
+</html>
